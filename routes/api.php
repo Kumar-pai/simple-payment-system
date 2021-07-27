@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['prefix' => 'user'], function () {
+Route::group(['prefix' => 'auth'], function () {
     Route::post('signup', 'Auth\AuthController@signup');
+    Route::post('login', 'Auth\AuthController@login');
 });
