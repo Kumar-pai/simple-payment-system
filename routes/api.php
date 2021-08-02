@@ -17,3 +17,7 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('signup', 'Auth\AuthController@signup');
     Route::post('login', 'Auth\AuthController@login');
 });
+
+Route::group(['prefix' => 'v1'], function () {
+    Route::resource('plans', 'PlanController', ['only' => ['index', 'show', 'store', 'destroy']]);
+});
