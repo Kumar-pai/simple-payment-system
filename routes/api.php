@@ -21,3 +21,7 @@ Route::group(['prefix' => 'auth'], function () {
 Route::group(['prefix' => 'v1'], function () {
     Route::resource('plans', 'PlanController', ['only' => ['index', 'show', 'store', 'destroy']]);
 });
+
+Route::group(['middleware' => ['auth:jwt'], 'prefix' => 'v1'], function () {
+    Route::resource('orders', 'OrderController', ['only' => ['index', 'show', 'store', 'destroy']]);
+});
