@@ -20,6 +20,7 @@ Route::group(['prefix' => 'auth'], function () {
 
 Route::group(['prefix' => 'v1'], function () {
     Route::resource('plans', 'PlanController', ['only' => ['index', 'show', 'store', 'destroy']]);
+    Route::post('ecpay-sync-order-payment-status', 'OrderController@syncECPayOrderPaymentStatus')->name('ecpay-sync-order-payment-status');
 });
 
 Route::group(['middleware' => ['auth:jwt'], 'prefix' => 'v1'], function () {

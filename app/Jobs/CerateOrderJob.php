@@ -42,6 +42,7 @@ class CerateOrderJob implements ShouldQueue
         $this->orderData['amount'] = $plan->amount;
 
         $order = Order::create($this->orderData);
-        dd($order);
+
+        $this->thirdPartyPaymentAdapter->createOrder($order);
     }
 }
