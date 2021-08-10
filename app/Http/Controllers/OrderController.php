@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Validator;
 
-use App\Adapter\ECPayOrderAdapter;
+use App\Entities\Order;
 
 use App\Services\OrderService;
+
+use App\Adapter\ECPayOrderAdapter;
 
 class OrderController extends Controller
 {
@@ -56,8 +59,18 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, Order $order)
     {
-        //
+        if (!$order) {
+            return response()->json(['message' => 'Invalid query result for order'], 400);
+        }
+
+        $ecpayCheckoutHtml = Redis::get('ecpay_checkout_html_' . $order->uuid);
+
+        if (empty($ecpayCheckoutHtml)) {
+            return response()->json(['message' => 'Invalid query result for order'], 400);
+        }
+
+        return $ecpayCheckoutHtml;
     }
 }

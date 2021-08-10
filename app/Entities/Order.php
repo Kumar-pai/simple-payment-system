@@ -18,4 +18,10 @@ class Order extends Model
         'plan_name',
         'amount'
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
+
 }

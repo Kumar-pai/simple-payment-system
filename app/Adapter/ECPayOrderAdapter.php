@@ -52,7 +52,7 @@ class ECPayOrderAdapter implements IOrederAdapterInterface
 
         $ecpayCheckOutHtml = $this->ecpay->CheckOutString();
 
-        Redis::set('order_uuid:' . $orderData->uuid, $ecpayCheckOutHtml, 3600);
+        Redis::set('ecpay_checkout_html_' . $orderData->uuid, $ecpayCheckOutHtml, 3600);
     }
 
     public function syncOrderPaymentStatus($request)
