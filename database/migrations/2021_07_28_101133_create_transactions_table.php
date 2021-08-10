@@ -16,8 +16,12 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('order_id');
+            $table->string('ord_number', 20);
             $table->string('transaction_number', 15);
+            $table->integer('transaction_amount');
             $table->dateTime('payment_date');
+            $table->integer('payment_processing_fee');
+            $table->string('message')->nullable();
             $table->timestamps();
         });
     }
