@@ -1,0 +1,50 @@
+version: "3.9"
+
+services:
+  simple-payment-system:
+    container_name: api
+    build:
+      context: .
+      args:
+        - DB_DATABASE=
+        - DB_USERNAME=
+        - DB_PASSWORD=
+    volumes:
+      - .:/var/www/app/
+    ports:
+      - 8989:8889
+    environment:
+      - APP_NAME=Laravel
+      - APP_ENV=local
+      - APP_KEY=
+      - APP_DEBUG=true
+      - ECPAY_HASH_IV=
+      - ECPAY_HASH_KEY=
+      - ECPAY_SERVE_URL=
+      - ECPAY_RETURN_URL=
+      - ECPAY_MERCHANT_ID=
+      - ECPAY_TRAND_NO_PREFIX=
+      - JWT_SECRET=
+
+  database:
+    container_name: mysql
+    platform: linux/amd64
+    image: mysql:8
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=payment-system
+    volumes:
+      - .mysql/:/var/lib/mysql
+
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - 6379:6379
+
+
+
+
+

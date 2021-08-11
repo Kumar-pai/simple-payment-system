@@ -34,8 +34,7 @@ class OrderService
 
         $thirdPartyPaymentAdapter = $this->getThirdPartyPaymentAdapter($request->input('payment_vendor'));
 
-        $cerateOrderJob = new CerateOrderJob($params, $thirdPartyPaymentAdapter);
-        $cerateOrderJob->handle();
+        CerateOrderJob::dispatch($params, $thirdPartyPaymentAdapter)->onQueue('order-work');
 
         return $params['uuid'];
     }
